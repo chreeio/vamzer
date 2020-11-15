@@ -16,10 +16,12 @@ public final class Guards {
      * @param exceptionSupplier a supplier providing the exception which is thrown when the predicate returns false
      * @param <T> the type of the checked value
      */
-    public static <T> void guard(final T value, final Predicate<T> predicate, final Supplier<RuntimeException> exceptionSupplier) {
+    public static <T> T guard(final T value, final Predicate<T> predicate, final Supplier<RuntimeException> exceptionSupplier) {
         if (!predicate.test(value)) {
             throw exceptionSupplier.get();
         }
+
+        return value;
     }
 
     /**
@@ -27,8 +29,8 @@ public final class Guards {
      * @param value the value to be checked
      * @param name the (parameter) name of the checked value
      */
-    public static void nonNull(final Object value, final String name) {
-        guard(value, Objects::nonNull, () -> new NullPointerException(name + " must not be null!"));
+    public static <T> T nonNull(final T value, final String name) {
+        return guard(value, Objects::nonNull, () -> new NullPointerException(name + " must not be null!"));
     }
 
     /**
