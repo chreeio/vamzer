@@ -1,0 +1,28 @@
+{
+  "name": "@chreeio/vamzer",
+  "version": "1.0.0",
+  "description": "JVM CLI and library to quickly check if a string might be a secret.",
+  "private": true,
+  "scripts": {
+  },
+  "husky": {
+    "hooks": {
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chreeio/vamzer.git"
+  },
+  "author": "Chree Development Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chreeio/vamzer/issues"
+  },
+  "homepage": "https://github.com/chreeio/vamzer#readme",
+  "devDependencies": {
+    "@commitlint/cli": "9.0.1",
+    "@commitlint/config-conventional": "9.0.1",
+    "husky": "4.2.5"
+  }
+}
