@@ -1,0 +1,26 @@
+{
+    "repository": {
+        "name": "Vamzer",
+        "description": "JVM CLI and library to quickly check if a string might be a secret."
+    },
+    "entries": {
+        "javadoc": {
+            "name": "JavaDoc",
+            "description": "Java documentation generated using JavaDoc.",
+            "type": "documentation",
+            "configuration": {
+                "directory": "target/site/apidocs/generated-docs"
+            }
+        },
+        "manifest": {
+            "name": "Manifest Files",
+            "description": "Maven pom.xml.",
+            "type": "manifest",
+            "configuration": {
+                "files": [
+                    "pom.xml"
+                ]
+            }
+        }
+    }
+}
