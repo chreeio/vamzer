@@ -1,0 +1,36 @@
+name: Build Master
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+    
+      - name: Set up JDK
+        uses: battila7/jdk-via-jabba@v1
+        with:
+          jdk: graalvm-ce-java11@20.1.0
+
+      - name: Set up Maven Dependency Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Download All Maven Dependencies
+        run: |
+          mvn dependency:go-offline
+
+      - name: Run Tests with Maven
+        run: |
+          ./mvnw -B test
