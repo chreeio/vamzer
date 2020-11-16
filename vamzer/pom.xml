@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>vamzer-library</artifactId>
+    <artifactId>vamzer</artifactId>
     <version>1.0.0</version>
 
     <name>Vamzer Library</name>

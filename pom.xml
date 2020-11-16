@@ -51,7 +51,7 @@
     </properties>
 
     <modules>
-        <module>vamzer-library</module>
+        <module>vamzer</module>
     </modules>
 
     <distributionManagement>
