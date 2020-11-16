@@ -64,10 +64,12 @@ jobs:
           cat << EOF > $GITHUB_WORKSPACE/settings.xml
           <settings>
             <servers>
-              <id>github-chree-vamzer</id>
-              <username>\${env.GITHUB_ACTOR}</username>
-              <password>\${env.GITHUB_TOKEN}</password>
-            </server>
+              <server>
+                <id>github-chree-vamzer</id>
+                <username>\${env.GITHUB_ACTOR}</username>
+                <password>\${env.GITHUB_TOKEN}</password>
+              </server>
+            </servers>
           </settings>
           EOF
 
