@@ -56,8 +56,9 @@
 
     <distributionManagement>
         <repository>
-            <id>github-chree-vamzer</id>
-            <url>https://maven.pkg.github.com/chree/vamzer</url>
+            <id>github-chreeio-vamzer</id>
+            <name>GitHub chreeio Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/chreeio/vamzer</url>
         </repository>
     </distributionManagement>
 

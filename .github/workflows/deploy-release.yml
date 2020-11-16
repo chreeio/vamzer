@@ -63,9 +63,32 @@ jobs:
         run: |
           cat << EOF > $GITHUB_WORKSPACE/settings.xml
           <settings>
+            <activeProfiles>
+              <activeProfile>github</activeProfile>
+            </activeProfiles>
+
+            <profiles>
+              <profile>
+                <id>github</id>
+                <repositories>
+                  <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                  </repository>
+                  <repository>
+                    <id>github-chreeio-vamzer</id>
+                    <name>GitHub chreeio Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/chreeio/vamzer</url>
+                  </repository>
+                </repositories>
+              </profile>
+            </profiles>
+
             <servers>
               <server>
-                <id>github-chree-vamzer</id>
+                <id>github-chreeio-vamzer</id>
                 <username>\${env.GITHUB_ACTOR}</username>
                 <password>\${env.GITHUB_TOKEN}</password>
               </server>
