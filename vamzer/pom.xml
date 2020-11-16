@@ -15,4 +15,8 @@
 
     <name>Vamzer Library</name>
     <description>JVM library to quickly check if a string might be a secret.</description>
+
+    <build>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    </build>
 </project>
