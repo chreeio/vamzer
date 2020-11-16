@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.chree</groupId>
+        <groupId>io.chree.vamzer</groupId>
         <artifactId>vamzer-parent</artifactId>
         <version>1.0.0</version>
     </parent>
