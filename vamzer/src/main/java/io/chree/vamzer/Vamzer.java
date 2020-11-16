@@ -76,6 +76,10 @@ public final class Vamzer {
 
             for (final var checker : checkerChain) {
                 result = checker.checkIfSecret(result.getCheckedValue(), result.getHints());
+
+                if (result.isSecretDetected()) {
+                    break;
+                }
             }
 
             return result;
