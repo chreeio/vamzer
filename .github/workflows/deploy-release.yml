@@ -1,0 +1,78 @@
+name: Deploy Release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+    
+      - name: Set up JDK
+        uses: battila7/jdk-via-jabba@v1
+        with:
+          jdk: graalvm-ce-java11@20.1.0
+
+      - name: Set up Maven Dependency Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Download All Maven Dependencies
+        run: |
+          mvn dependency:go-offline
+
+      - name: Run Tests with Maven
+        run: |
+          ./mvnw -B test
+
+  deploy-to-gpr:
+    needs: [ test ]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+    
+      - name: Set up JDK
+        uses: battila7/jdk-via-jabba@v1
+        with:
+          jdk: graalvm-ce-java11@20.1.0
+
+      - name: Set up maven Dependency Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Download All maven Dependencies
+        run: |
+          mvn dependency:go-offline
+
+      - name: Create maven settings.xml
+        run: |
+          cat << EOF > $GITHUB_WORKSPACE/settings.xml
+          <settings>
+            <servers>
+              <id>github-chree-vamzer</id>
+              <username>${env.GITHUB_ACTOR}</username>
+              <password>${env.GITHUB_TOKEN}</password>
+            </server>
+          </settings>
+          EOF
+
+      - name: Deploy to GPR with maven
+        run: |
+          ./mvnw -s deploy $GITHUB_WORKSPACE/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
