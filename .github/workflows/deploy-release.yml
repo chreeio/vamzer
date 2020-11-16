@@ -60,45 +60,8 @@ jobs:
         run: |
           mvn dependency:go-offline
 
-      - name: Create maven settings.xml
-        run: |
-          cat << EOF > $GITHUB_WORKSPACE/settings.xml
-          <settings>
-            <activeProfiles>
-              <activeProfile>github</activeProfile>
-            </activeProfiles>
-
-            <profiles>
-              <profile>
-                <id>github</id>
-                <repositories>
-                  <repository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                  </repository>
-                  <repository>
-                    <id>github-chreeio-vamzer</id>
-                    <name>GitHub chreeio Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/chreeio/vamzer</url>
-                  </repository>
-                </repositories>
-              </profile>
-            </profiles>
-
-            <servers>
-              <server>
-                <id>github-chreeio-vamzer</id>
-                <username>\${env.GITHUB_ACTOR}</username>
-                <password>\${env.GITHUB_TOKEN}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
       - name: Deploy to GPR with maven
         run: |
-          ./mvnw deploy -s $GITHUB_WORKSPACE/settings.xml
+          ./mvnw deploy -s ./.mvn/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
