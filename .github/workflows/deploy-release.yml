@@ -65,8 +65,8 @@ jobs:
           <settings>
             <servers>
               <id>github-chree-vamzer</id>
-              <username>${env.GITHUB_ACTOR}</username>
-              <password>${env.GITHUB_TOKEN}</password>
+              <username>\${env.GITHUB_ACTOR}</username>
+              <password>\${env.GITHUB_TOKEN}</password>
             </server>
           </settings>
           EOF
