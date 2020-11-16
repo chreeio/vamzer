@@ -73,6 +73,6 @@ jobs:
 
       - name: Deploy to GPR with maven
         run: |
-          ./mvnw -s deploy $GITHUB_WORKSPACE/settings.xml
+          ./mvnw deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
