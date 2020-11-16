@@ -70,6 +70,14 @@ public final class SecretCheckResult {
     }
 
     /**
+     * Same as {@link #throwIfSecretDetected()}.
+     * @throws SecretDetectedException if the checked value is a secret
+     */
+    public void snitch() {
+        throwIfSecretDetected();
+    }
+
+    /**
      * Gets the checked value.
      * @return the checked value
      */
