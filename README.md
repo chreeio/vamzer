@@ -28,9 +28,9 @@
 ## Features
 
   * **Entire String Checking**. The built-in checkers will examine if the entire string is a secret, but not its substrings. For the rationale behind this behavior, please see the [Motivation](#motivation) section.
-  * **Configurable Built-in Checkers**. vamzer offers a wide array of configurable checkers out of the box. Please refer to the [docs/built-in-checkers](docs/built-in-checkers.md) document for the available checkers and their usage.
+  * **Configurable Built-in Checkers**. vamzer offers a wide array of configurable checkers out of the box. Please refer to the [docs/built-in-checkers.md](docs/built-in-checkers.md) document for the available checkers and their usage.
   * **Custom Checkers**. You can use your own checkers with minimal effort.
-  * **CLI**. vamzer also comes with a CLI for integration into scripts and languages outside of the JVM world. Please refer to the [docs/CLI.md](docs/CLI.md) document for more information on the usage of the CLI.
+  * **Multiplatform**. vamzer is a [Kotlin Multiplatform](https://kotlinlang.org/docs/reference/multiplatform.html) library, with most of its code written in Common Kotlin.
 
 ## Installation
 
