@@ -65,36 +65,44 @@ Then simply add the appropriate dependency:
 
 In the following example, we will execute all available checkers with their default configuration:
 
+~~~~Kotlin
+import io.chree.vamzer.Vamzer
+
+fun main() {
+    Vamzer.usingMultipleCheckers(Vamzer.Checkers.all())
+        .checkIfSecret("The value we want to check.")
+        .throwIfSecretDetected()
+}
+~~~~
+
+Or in Java:
+
 ~~~~Java
 import io.chree.vamzer.Vamzer;
-import io.chree.vamzer.checker.SecretCheckResult;
 
-class Application {
+import static java.util.Collections.emptyMap;
+
+public class Application {
     public static void main(String[] args) {
-        SecretCheckResult result = Vamzer.usingMultipleCheckers(Vamzer.Checkers.all())
-                .checkIfSecret("The value you want to check.");
-
-        result.throwIfSecretDetected();
+        Vamzer.INSTANCE.usingMultipleCheckers(Vamzer.Checkers.INSTANCE.all())
+                .checkIfSecret("The value we want to check.", emptyMap())
+                .throwIfSecretDetected();
     }
 }
 ~~~~
 
 When checking multiple values with the same set of checkers, you can prevent unnecessary instantiations using the following method:
 
-~~~~Java
-import io.chree.vamzer.Vamzer;
-import io.chree.vamzer.checker.SecretCheckResult;
-import io.chree.vamzer.checker.SecretChecker;
+~~~~Kotlin
+import io.chree.vamzer.Vamzer
+import io.chree.vamzer.checker.SecretChecker
 
-class Application {
-    public static void main(String[] args) {
-        SecretChecker checker = Vamzer.usingMultipleCheckers(Vamzer.Checkers.all());
+fun main() {
+    val checker: SecretChecker = Vamzer.usingMultipleCheckers(Vamzer.Checkers.all())
 
-        for (var value : List.of("a", "b", "c")) {
-            SecretCheckResult result = checker.checkIfSecret(value);
-
-            result.throwIfSecretDetected();
-        }
+    listOf("1", "2", "3").forEach { value -> checker
+        .checkIfSecret(value)
+        .throwIfSecretDetected()
     }
 }
 ~~~~
