@@ -1,18 +1,23 @@
 plugins {
     kotlin("multiplatform") version "1.4.10"
+
+    `maven-publish`
 }
+
 group = "io.chree.vamzer"
 version = "1.0.0"
 
 repositories {
     mavenCentral()
 }
+
 kotlin {
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
         }
     }
+
     js {
         browser {
             testTask {
@@ -23,6 +28,7 @@ kotlin {
             }
         }
     }
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
@@ -56,4 +62,17 @@ kotlin {
         val nativeMain by getting
         val nativeTest by getting
     }
+}
+
+publishing {
+  repositories {
+      maven {
+          name = "GitHubPackages"
+          url = uri("https://maven.pkg.github.com/chreeio/vamzer")
+          credentials {
+              username = System.getenv("GITHUB_ACTOR")
+              password = System.getenv("GITHUB_TOKEN")
+          }
+      }
+  }
 }
