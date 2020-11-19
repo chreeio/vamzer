@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.chree.vamzer"
-version = "1.0.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -65,14 +65,34 @@ kotlin {
 }
 
 publishing {
-  repositories {
+    repositories {
       maven {
           name = "GitHubPackages"
           url = uri("https://maven.pkg.github.com/chreeio/vamzer")
           credentials {
-              username = System.getenv("GITHUB_ACTOR")
-              password = System.getenv("GITHUB_TOKEN")
+              username = System.getenv("VAMZER_GPR_USERNAME")
+              password = System.getenv("VAMZER_GPR_PASSWORD")
           }
       }
-  }
+    }
+
+    publications {
+        filterIsInstance<MavenPublication>()
+            .forEach { mavenPublication ->
+                mavenPublication.pom {
+                    name.set("Vamzer")
+                    description.set("Kotlin Multiplatform library to quickly check if a string is a secret.")
+                    url.set("https://github.com/chreeio/vamzer")
+
+                    inceptionYear.set("2020")
+
+                    licenses {
+                        license {
+                            name.set("The MIT License")
+                            url.set("https://opensource.org/licenses/MIT")
+                        }
+                    }
+                }
+            }
+    }
 }
