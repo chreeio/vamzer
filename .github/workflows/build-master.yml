@@ -19,18 +19,12 @@ jobs:
         with:
           jdk: graalvm-ce-java11@20.1.0
 
-      - name: Set up Maven Dependency Cache
-        uses: actions/cache@v1
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: ${{ runner.os }}-gradle
 
-      - name: Download All Maven Dependencies
-        run: |
-          mvn dependency:go-offline
-
-      - name: Run Tests with Maven
-        run: |
-          ./mvnw -B test
+      - name: Build with Gradle
+        run: ./gradlew printVersion build
