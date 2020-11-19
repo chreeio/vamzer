@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-  JVM CLI and library. | Quickly check if a string is a secret.
+  Kotlin Multiplatform. | Quickly check if a string is a secret.
 </h3>
 
 <p align="center">
