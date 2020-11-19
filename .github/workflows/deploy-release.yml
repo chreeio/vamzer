@@ -6,37 +6,7 @@ on:
     - 'v*'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout the Repository
-        uses: actions/checkout@v2
-    
-      - name: Set up JDK
-        uses: battila7/jdk-via-jabba@v1
-        with:
-          jdk: graalvm-ce-java11@20.1.0
-
-      - name: Set up Maven Dependency Cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Download All Maven Dependencies
-        run: |
-          mvn dependency:go-offline
-
-      - name: Run Tests with Maven
-        run: |
-          ./mvnw -B test
-
   deploy-to-gpr:
-    needs: [ test ]
-
     runs-on: ubuntu-latest
 
     steps:
@@ -48,20 +18,20 @@ jobs:
         with:
           jdk: graalvm-ce-java11@20.1.0
 
-      - name: Set up maven Dependency Cache
-        uses: actions/cache@v1
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: ${{ runner.os }}-gradle
 
-      - name: Download All maven Dependencies
+      - name: Build with Gradle
         run: |
-          mvn dependency:go-offline
+          ./gradlew build
 
-      - name: Deploy to GPR with maven
+      - name: Deploy to GPR with Gradle
         run: |
-          ./mvnw deploy -s ./.mvn/settings.xml
+          ./gradlew publish
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          VAMZER_GPR_USERNAME: chree-bot
+          VAMZER_GPR_PASSWORD: ${{ github.token }}
